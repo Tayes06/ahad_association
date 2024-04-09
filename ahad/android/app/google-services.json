@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "822768380912",
+    "project_id": "ahad-af39b",
+    "storage_bucket": "ahad-af39b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822768380912:android:ac2c59cfc07b471a1c8b35",
+        "android_client_info": {
+          "package_name": "com.example.ahad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQRqc2wBTe0NrLweEbkp8U3sCITl-jgxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
