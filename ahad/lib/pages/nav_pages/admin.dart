@@ -50,11 +50,11 @@ class _AdminState extends State<Admin> {
               height: size.height * .45,
               decoration: const BoxDecoration(
                 color: Colors.indigoAccent,
-                image: DecorationImage(
-                  alignment: Alignment.centerLeft,
-                  image:
-                      AssetImage("assets/images/background_header_admin.png"),
-                ),
+                // image: DecorationImage(
+                //   alignment: Alignment.centerLeft,
+                //   image:
+                //       AssetImage("assets/images/background_header_admin.jpg"),
+                // ),
               ),
             ),
             SafeArea(
@@ -74,8 +74,8 @@ class _AdminState extends State<Admin> {
                       "Consulte et apporte des configurations necessaires à cette association",
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
-                                color: Colors.white70,
-                                fontWeight: FontWeight.w900,
+                                color: Color.fromARGB(255, 241, 240, 240),
+                                fontWeight: FontWeight.w400,
                               ),
                     ),
 

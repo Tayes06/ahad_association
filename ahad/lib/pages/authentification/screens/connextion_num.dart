@@ -1,6 +1,10 @@
+import 'package:ahad/pages/nav_pages/acceuil.dart';
 import 'package:ahad/pages/nav_pages/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -43,6 +47,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 SizedBox(height: 50),
                 TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "Email",
@@ -91,16 +96,31 @@ class _FormScreenState extends State<FormScreen> {
                   height: 60,
                 ),
                 MaterialButton(
-                  onPressed: () {
-                    // loggin button
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MainPage()));
-                    /*if (_formfield.currentState!.validate()) {
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                        email: emailController.text.trim(),
+                        password: passController.text.trim(),
+                      )
+                          .then((value) async {
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainPage()))
+                            .onError((error, stackTrace) {
+                          print("Error ${error.toString()}");
+                        });
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      print(e);
+                    }
+                  },
+                  /*if (_formfield.currentState!.validate()) {
                       print("Success");
                       emailController.clear();
                       passController.clear();
                     }*/
-                  },
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
@@ -129,7 +149,33 @@ class _FormScreenState extends State<FormScreen> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: emailController.text.trim(),
+                              password: passController.text.trim(),
+                            )
+                                .then((value) {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Acceuil()))
+                                  .onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
+                            });
+                          } on FirebaseAuthException catch (e) {
+                            print(e);
+                          }
+                        },
                         child: Text(
                           "Le réinitialiser",
                           style: TextStyle(
@@ -138,7 +184,26 @@ class _FormScreenState extends State<FormScreen> {
                           ),
                         ))
                   ],
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Rester connecté",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[600]),
+                    ),
+                    Transform.scale(
+                      scale: 0.7,
+                      child: CupertinoSwitch(
+                        value: false,
+                        onChanged: (bool val) {},
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

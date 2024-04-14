@@ -21,6 +21,8 @@ class _AddMemberFormState extends State<AddMemberForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
   TextEditingController adresseController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,25 +213,6 @@ class _AddMemberFormState extends State<AddMemberForm> {
               SizedBox(
                 height: 20.0,
               ),
-              Text(
-                "Rien",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 10.0),
-                decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(10)),
-                child: TextField(
-                  decoration: InputDecoration(border: InputBorder.none),
-                ),
-              ),
               SizedBox(
                 height: 20.0,
               ),
@@ -241,7 +224,6 @@ class _AddMemberFormState extends State<AddMemberForm> {
                   onPressed: () async {
                     String Id = randomAlphaNumeric(10);
                     Map<String, dynamic> infoMembreMap = {
-                      "Id": Id,
                       "Nom": nomController.text,
                       "Prenom": prenomController,
                       "DateNaissance": dateNaissController,
@@ -283,7 +265,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
   }
 
 /*** controle du datePicker ****/
-  /*Future<void> selectionDate() async {
+  Future<void> selectionDate() async {
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -295,5 +277,5 @@ class _AddMemberFormState extends State<AddMemberForm> {
         //dateControler.text = picked.toString().split("")[0];
       });
     }
-  }*/
+  }
 }
